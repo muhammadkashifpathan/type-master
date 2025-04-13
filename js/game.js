@@ -201,6 +201,9 @@ function resumeGame() {
 function endGame() {
     if (!gameActive) return;
     
+    // Play game over sound
+    playGameoverSound();
+    
     // Stop timers
     clearInterval(gameTimer);
     clearInterval(wordInterval);
