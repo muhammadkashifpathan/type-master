@@ -119,6 +119,11 @@ nav ul li {
     transform: translateY(0);
 }
 
+/* Custom styling for sound toggle button */
+#sound-toggle-btn {
+    margin-left: 5px;
+}
+
 /* Main Content Styles */
 main {
     padding: 30px 0;
