@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize the app
     initNavigation();
     initThemeToggle();
+    initSoundToggle();
     initPracticeMode();
     initTestMode();
     initResultsSection();
@@ -45,15 +46,29 @@ function initNavigation() {
 function initPracticeMode() {
     const textDisplay = document.getElementById('practice-text-display');
     const inputField = document.getElementById('practice-input');
+    const startBtn = document.getElementById('practice-start');
+    const stopBtn = document.getElementById('practice-stop');
     const restartBtn = document.getElementById('practice-restart');
     const newTextBtn = document.getElementById('practice-new-text');
+    
+    let practiceActive = false;
     
     // Load initial text
     loadPracticeText();
     
     // Event listeners
     inputField.addEventListener('input', function() {
-        updatePracticeTyping(this.value);
+        if (practiceActive) {
+            updatePracticeTyping(this.value);
+        }
+    });
+    
+    startBtn.addEventListener('click', function() {
+        startPractice();
+    });
+    
+    stopBtn.addEventListener('click', function() {
+        stopPractice();
     });
     
     restartBtn.addEventListener('click', function() {
@@ -68,22 +83,61 @@ function initPracticeMode() {
     function loadPracticeText() {
         const randomQuote = getRandomQuote();
         displayTextForTyping(textDisplay, randomQuote);
-        restartPractice();
+        resetPractice();
     }
     
-    // Restart practice session
-    function restartPractice() {
-        inputField.value = '';
-        startPracticeTimer();
-        resetStats('practice');
+    // Start practice session
+    function startPractice() {
+        practiceActive = true;
+        inputField.disabled = false;
+        inputField.placeholder = "Start typing here...";
         inputField.focus();
+        startPracticeTimer();
+        
+        // Update button states
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+    }
+    
+    // Stop practice session
+    function stopPractice() {
+        practiceActive = false;
+        stopTimer('practice');
+        inputField.disabled = true;
+        
+        // Update button states
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+    }
+    
+    // Reset practice session without starting
+    function resetPractice() {
+        // Stop any active session
+        stopPractice();
+        
+        // Reset UI
+        inputField.value = '';
+        resetStats('practice');
+        document.getElementById('practice-time').textContent = '0:00';
         updatePracticeTyping('');
+    }
+    
+    // Restart practice session (reset and start)
+    function restartPractice() {
+        resetPractice();
+        startPractice();
     }
     
     // Update typing in practice mode
     function updatePracticeTyping(inputText) {
         const typingData = processTypingInput(textDisplay, inputText);
         updateStats('practice', typingData);
+        
+        // If typing is complete, play game over sound
+        if (typingData.isComplete) {
+            playGameoverSound();
+            stopPractice();
+        }
     }
 }
 
@@ -136,6 +190,8 @@ function initTestMode() {
         countdownContainer.classList.remove('hidden');
         let count = 3;
         
+        // Play countdown sound at the start
+        playCountdownSound();
         countdown.textContent = count;
         
         const countdownInterval = setInterval(function() {
@@ -147,6 +203,7 @@ function initTestMode() {
                 callback();
             } else {
                 countdown.textContent = count;
+                playCountdownSound(); // Play sound for each countdown number
             }
         }, 1000);
     }

@@ -29,6 +29,9 @@ function startGame() {
     const gameArea = document.getElementById('falling-words');
     const gameInput = document.getElementById('game-input');
     
+    // Play countdown sound
+    playCountdownSound();
+    
     // Reset game state
     gameArea.innerHTML = '';
     gameInput.value = '';
@@ -136,9 +139,17 @@ function checkWord(typedWord) {
             gameWordCount++;
             document.getElementById('game-score').textContent = gameScore;
             
+            // Play keypress sound for successful word
+            playKeypressSound();
+            
             wordFound = true;
             break;
         }
+    }
+    
+    // Play error sound if word not found
+    if (!wordFound) {
+        playErrorSound();
     }
     
     return wordFound;

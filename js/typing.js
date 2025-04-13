@@ -28,6 +28,7 @@ function processTypingInput(displayElement, inputText) {
     const characters = displayElement.querySelectorAll('.character');
     let correctCount = 0;
     let incorrectCount = 0;
+    let isNewCharacterIncorrect = false;
     
     // Reset all characters
     characters.forEach(char => {
@@ -36,13 +37,31 @@ function processTypingInput(displayElement, inputText) {
     
     // Process each character
     for (let i = 0; i < inputText.length && i < characters.length; i++) {
+        // Check if this is the newest character typed (last character in input)
+        const isNewestChar = (i === inputText.length - 1);
+        
         if (inputText[i] === characters[i].textContent) {
             characters[i].classList.add('correct');
             correctCount++;
+            
+            // Play keypress sound for the newest correct character typed
+            if (isNewestChar) {
+                playKeypressSound();
+            }
         } else {
             characters[i].classList.add('incorrect');
             incorrectCount++;
+            
+            // Flag if the newest character is incorrect
+            if (isNewestChar) {
+                isNewCharacterIncorrect = true;
+            }
         }
+    }
+    
+    // Play error sound if the newest character is incorrect
+    if (isNewCharacterIncorrect) {
+        playErrorSound();
     }
     
     // Mark current character
@@ -99,11 +118,19 @@ function startTestTimer(timeLimit, callback) {
             clearInterval(testTimer);
             document.getElementById('test-time').textContent = '0:00';
             
+            // Play game over sound when time's up
+            playGameoverSound();
+            
             if (testEndCallback) {
                 testEndCallback();
             }
         } else {
             document.getElementById('test-time').textContent = formatTime(remainingSeconds);
+            
+            // Play countdown sound when timer reaches exactly 3 seconds
+            if (remainingSeconds === 3) {
+                playCountdownSound();
+            }
         }
     }, 1000);
 }
