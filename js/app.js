@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize the app
     initNavigation();
     initThemeToggle();
+    initSoundToggle();  // Initialize sound toggle button
     initPracticeMode();
     initTestMode();
     initResultsSection();

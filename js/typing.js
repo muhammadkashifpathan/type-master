@@ -28,6 +28,12 @@ function processTypingInput(displayElement, inputText) {
     const characters = displayElement.querySelectorAll('.character');
     let correctCount = 0;
     let incorrectCount = 0;
+    let newIncorrect = false;
+    let newCorrect = false;
+    
+    // Store previous state for sound effects
+    const prevCorrectCount = characters.querySelectorAll('.correct').length;
+    const prevIncorrectCount = characters.querySelectorAll('.incorrect').length;
     
     // Reset all characters
     characters.forEach(char => {
@@ -48,6 +54,17 @@ function processTypingInput(displayElement, inputText) {
     // Mark current character
     if (inputText.length < characters.length) {
         characters[inputText.length].classList.add('current');
+    }
+    
+    // Determine if we should play sounds
+    if (correctCount > prevCorrectCount) {
+        // New correct character typed
+        playTypingSound();
+    }
+    
+    if (incorrectCount > prevIncorrectCount) {
+        // New incorrect character typed
+        playWrongSound();
     }
     
     // Check if typing is complete

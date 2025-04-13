@@ -93,6 +93,12 @@ nav ul li {
     border-bottom: 2px solid var(--primary-color);
 }
 
+.theme-toggle {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 .theme-toggle button {
     background: none;
     border: none;
@@ -100,10 +106,17 @@ nav ul li {
     font-size: 1.2rem;
     color: var(--text-color);
     transition: var(--transition);
+    padding: 8px;
+    border-radius: 4px;
 }
 
 .theme-toggle button:hover {
     color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.theme-toggle button:active {
+    transform: translateY(0);
 }
 
 /* Main Content Styles */
