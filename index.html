@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeMaster - Improve Your Typing Skills</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>TypeMaster</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" data-section="practice">Practice</a></li>
+                    <li><a href="#" class="nav-link" data-section="test">Test</a></li>
+                    <li><a href="#" class="nav-link" data-section="game">Game</a></li>
+                    <li><a href="#" class="nav-link" data-section="history">History</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <button id="theme-toggle-btn">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun hidden"></i>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Practice Section -->
+            <section id="practice" class="section active">
+                <h2>Typing Practice</h2>
+                <div class="typing-container">
+                    <div class="stats-bar">
+                        <div class="stat">
+                            <span class="stat-label">WPM:</span>
+                            <span id="practice-wpm" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Accuracy:</span>
+                            <span id="practice-accuracy" class="stat-value">100%</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Errors:</span>
+                            <span id="practice-errors" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Time:</span>
+                            <span id="practice-time" class="stat-value">0:00</span>
+                        </div>
+                    </div>
+                    <div class="text-display" id="practice-text-display"></div>
+                    <textarea id="practice-input" placeholder="Start typing here..." autofocus></textarea>
+                    <div class="buttons">
+                        <button id="practice-restart" class="btn">Restart</button>
+                        <button id="practice-new-text" class="btn">New Text</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Test Section -->
+            <section id="test" class="section">
+                <h2>Typing Test</h2>
+                <div class="test-modes">
+                    <button class="test-mode-btn" data-time="30">30 Seconds</button>
+                    <button class="test-mode-btn" data-time="60">1 Minute</button>
+                    <button class="test-mode-btn" data-time="180">3 Minutes</button>
+                    <button class="test-mode-btn" data-time="300">5 Minutes</button>
+                </div>
+                <div class="typing-container">
+                    <div id="countdown-container" class="hidden">
+                        <div id="countdown">3</div>
+                    </div>
+                    <div class="stats-bar">
+                        <div class="stat">
+                            <span class="stat-label">WPM:</span>
+                            <span id="test-wpm" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Accuracy:</span>
+                            <span id="test-accuracy" class="stat-value">100%</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Errors:</span>
+                            <span id="test-errors" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Time:</span>
+                            <span id="test-time" class="stat-value">0:00</span>
+                        </div>
+                    </div>
+                    <div class="text-display" id="test-text-display"></div>
+                    <textarea id="test-input" placeholder="Select a test mode to start..." disabled></textarea>
+                    <div class="buttons">
+                        <button id="test-restart" class="btn">Restart</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section (initially hidden) -->
+            <section id="results" class="section hidden">
+                <h2>Test Results</h2>
+                <div class="results-container">
+                    <div class="result-card">
+                        <div class="result-item">
+                            <h3>Words Per Minute</h3>
+                            <div id="result-wpm" class="result-value">0</div>
+                        </div>
+                        <div class="result-item">
+                            <h3>Accuracy</h3>
+                            <div id="result-accuracy" class="result-value">0%</div>
+                        </div>
+                        <div class="result-item">
+                            <h3>Errors</h3>
+                            <div id="result-errors" class="result-value">0</div>
+                        </div>
+                        <div class="result-item">
+                            <h3>Characters Typed</h3>
+                            <div id="result-chars" class="result-value">0</div>
+                        </div>
+                        <div class="result-item">
+                            <h3>Time Used</h3>
+                            <div id="result-time" class="result-value">0:00</div>
+                        </div>
+                    </div>
+                    <div class="buttons result-buttons">
+                        <button id="results-retry" class="btn">Try Again</button>
+                        <button id="results-new-test" class="btn">New Test</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game Section -->
+            <section id="game" class="section">
+                <h2>Typing Game</h2>
+                <div class="game-container">
+                    <div class="game-stats-bar">
+                        <div class="stat">
+                            <span class="stat-label">Score:</span>
+                            <span id="game-score" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Speed:</span>
+                            <span id="game-speed" class="stat-value">Normal</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Time:</span>
+                            <span id="game-time" class="stat-value">0:00</span>
+                        </div>
+                    </div>
+                    <div id="game-area">
+                        <div id="falling-words"></div>
+                        <div class="game-input-container">
+                            <input type="text" id="game-input" placeholder="Type the falling words..." autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button id="game-start" class="btn">Start Game</button>
+                        <button id="game-pause" class="btn hidden">Pause</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game Over Screen (initially hidden) -->
+            <section id="game-over" class="section hidden">
+                <h2>Game Over</h2>
+                <div class="results-container">
+                    <div class="result-card">
+                        <div class="result-item">
+                            <h3>Final Score</h3>
+                            <div id="game-over-score" class="result-value">0</div>
+                        </div>
+                        <div class="result-item">
+                            <h3>Words Typed</h3>
+                            <div id="game-over-words" class="result-value">0</div>
+                        </div>
+                        <div class="result-item">
+                            <h3>Speed</h3>
+                            <div id="game-over-speed" class="result-value">Normal</div>
+                        </div>
+                        <div class="result-item">
+                            <h3>Time Survived</h3>
+                            <div id="game-over-time" class="result-value">0:00</div>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button id="game-over-retry" class="btn">Play Again</button>
+                        <button id="game-over-menu" class="btn">Main Menu</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Section -->
+            <section id="history" class="section">
+                <h2>My Stats & History</h2>
+                <div class="history-container">
+                    <div class="personal-bests">
+                        <h3>Personal Bests</h3>
+                        <div class="best-stats">
+                            <div class="best-stat">
+                                <span class="best-label">Best WPM:</span>
+                                <span id="best-wpm" class="best-value">0</span>
+                            </div>
+                            <div class="best-stat">
+                                <span class="best-label">Best Accuracy:</span>
+                                <span id="best-accuracy" class="best-value">0%</span>
+                            </div>
+                            <div class="best-stat">
+                                <span class="best-label">Best Game Score:</span>
+                                <span id="best-game-score" class="best-value">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test-history">
+                        <h3>Recent Tests</h3>
+                        <div class="history-tabs">
+                            <button class="history-tab active" data-history="test">Tests</button>
+                            <button class="history-tab" data-history="game">Games</button>
+                        </div>
+                        <div class="history-content">
+                            <div id="test-history-list" class="history-list active">
+                                <!-- Test history items will be added here -->
+                                <div class="empty-history">No test history available</div>
+                            </div>
+                            <div id="game-history-list" class="history-list">
+                                <!-- Game history items will be added here -->
+                                <div class="empty-history">No game history available</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button id="clear-history" class="btn btn-danger">Clear History</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 TypeMaster. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/quotes.js"></script>
+    <script src="js/typing.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
