@@ -93,12 +93,6 @@ nav ul li {
     border-bottom: 2px solid var(--primary-color);
 }
 
-.theme-toggle {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
 .theme-toggle button {
     background: none;
     border: none;
@@ -106,22 +100,10 @@ nav ul li {
     font-size: 1.2rem;
     color: var(--text-color);
     transition: var(--transition);
-    padding: 8px;
-    border-radius: 4px;
 }
 
 .theme-toggle button:hover {
     color: var(--primary-color);
-    transform: translateY(-2px);
-}
-
-.theme-toggle button:active {
-    transform: translateY(0);
-}
-
-/* Custom styling for sound toggle button */
-#sound-toggle-btn {
-    margin-left: 5px;
 }
 
 /* Main Content Styles */
@@ -289,22 +271,6 @@ textarea:focus, input[type="text"]:focus {
 
 .btn-danger:hover {
     background-color: #c0392b;
-}
-
-.btn-success {
-    background-color: var(--success-color);
-}
-
-.btn-success:hover {
-    background-color: #27ae60;
-}
-
-.btn-warning {
-    background-color: #f39c12;
-}
-
-.btn-warning:hover {
-    background-color: #e67e22;
 }
 
 /* Test Modes */

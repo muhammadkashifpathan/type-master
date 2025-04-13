@@ -25,13 +25,9 @@
                 </ul>
             </nav>
             <div class="theme-toggle">
-                <button id="theme-toggle-btn" title="Toggle dark/light mode">
+                <button id="theme-toggle-btn">
                     <i class="fas fa-moon"></i>
                     <i class="fas fa-sun hidden"></i>
-                </button>
-                <button id="sound-toggle-btn" title="Toggle sound effects">
-                    <i class="fas fa-volume-up"></i>
-                    <i class="fas fa-volume-mute hidden"></i>
                 </button>
             </div>
         </header>
@@ -60,10 +56,8 @@
                         </div>
                     </div>
                     <div class="text-display" id="practice-text-display"></div>
-                    <textarea id="practice-input" placeholder="Click 'Start Practice' to begin..." autofocus></textarea>
+                    <textarea id="practice-input" placeholder="Start typing here..." autofocus></textarea>
                     <div class="buttons">
-                        <button id="practice-start" class="btn btn-success">Start Practice</button>
-                        <button id="practice-stop" class="btn btn-warning hidden">Stop Practice</button>
                         <button id="practice-restart" class="btn">Restart</button>
                         <button id="practice-new-text" class="btn">New Text</button>
                     </div>
@@ -253,7 +247,6 @@
     </div>
 
     <script src="js/quotes.js"></script>
-    <script src="js/sounds.js"></script>
     <script src="js/typing.js"></script>
     <script src="js/stats.js"></script>
     <script src="js/history.js"></script>

@@ -131,9 +131,6 @@ function checkWord(typedWord) {
             activeWords[i].element.remove();
             activeWords.splice(i, 1);
             
-            // Play correct sound effect
-            playTypingSound();
-            
             // Update score
             gameScore += typedWord.length * 10;
             gameWordCount++;
@@ -142,11 +139,6 @@ function checkWord(typedWord) {
             wordFound = true;
             break;
         }
-    }
-    
-    // Play wrong sound if no word matched
-    if (!wordFound && typedWord.length > 1) {
-        playWrongSound();
     }
     
     return wordFound;
@@ -197,9 +189,6 @@ function resumeGame() {
 // End the game
 function endGame() {
     if (!gameActive) return;
-    
-    // Play game over sound
-    playGameOverSound();
     
     // Stop timers
     clearInterval(gameTimer);
