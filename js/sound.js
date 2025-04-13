@@ -8,17 +8,17 @@ const countdownSound = new Audio('audio/countdown.mp3');
 const gameoverSound = new Audio('audio/gameover.mp3');
 
 // Set volume for all sounds
-keypressSound.volume = 0.3;
-errorSound.volume = 0.4;
-countdownSound.volume = 0.5;
-gameoverSound.volume = 0.5;
+keypressSound.volume = 0.2;
+errorSound.volume = 0.3;
+countdownSound.volume = 0.4;
+gameoverSound.volume = 0.4;
 
 // Function to play the keypress sound
 function playKeypressSound() {
     if (soundsEnabled) {
         // Clone the sound to allow multiple keypresses in quick succession
         const sound = keypressSound.cloneNode();
-        sound.volume = 0.3;
+        sound.volume = 0.2;
         sound.play().catch(e => console.log("Error playing sound:", e));
     }
 }
