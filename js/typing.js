@@ -94,6 +94,14 @@ function startPracticeTimer() {
         
         document.getElementById('practice-time').textContent = formatTime(elapsedSeconds);
     }, 1000);
+    
+    // Enable the practice input field
+    document.getElementById('practice-input').disabled = false;
+    document.getElementById('practice-input').focus();
+    
+    // Show the stop button, hide the start button
+    document.getElementById('practice-start').classList.add('hidden');
+    document.getElementById('practice-stop').classList.remove('hidden');
 }
 
 // Start test timer with countdown
@@ -103,9 +111,13 @@ function startTestTimer(timeLimit, callback) {
         clearInterval(testTimer);
     }
     
+    // Make sure any previous sounds are stopped
+    stopClockTickingSound();
+    
     testTimeLimit = timeLimit;
     testStartTime = new Date();
     testEndCallback = callback;
+    let tickingSoundPlayed = false;
     
     testTimer = setInterval(function() {
         const currentTime = new Date();
@@ -116,11 +128,23 @@ function startTestTimer(timeLimit, callback) {
             clearInterval(testTimer);
             document.getElementById('test-time').textContent = '0:00';
             
+            // Stop ticking sound if it's playing
+            stopClockTickingSound();
+            
+            // Play game over sound
+            playGameOverSound();
+            
             if (testEndCallback) {
                 testEndCallback();
             }
         } else {
             document.getElementById('test-time').textContent = formatTime(remainingSeconds);
+            
+            // Play clock ticking sound when 3 seconds remain
+            if (remainingSeconds === 3 && !tickingSoundPlayed) {
+                playClockTickingSound();
+                tickingSoundPlayed = true;
+            }
         }
     }, 1000);
 }
@@ -130,6 +154,13 @@ function stopTimer(timerType) {
     if (timerType === 'practice' && practiceTimer) {
         clearInterval(practiceTimer);
         practiceTimer = null;
+        
+        // Disable the practice input field
+        document.getElementById('practice-input').disabled = true;
+        
+        // Show the start button, hide the stop button
+        document.getElementById('practice-start').classList.remove('hidden');
+        document.getElementById('practice-stop').classList.add('hidden');
     } else if (timerType === 'test' && testTimer) {
         clearInterval(testTimer);
         testTimer = null;

@@ -48,13 +48,26 @@ function initPracticeMode() {
     const inputField = document.getElementById('practice-input');
     const restartBtn = document.getElementById('practice-restart');
     const newTextBtn = document.getElementById('practice-new-text');
+    const startBtn = document.getElementById('practice-start');
+    const stopBtn = document.getElementById('practice-stop');
     
     // Load initial text
     loadPracticeText();
     
+    // Initially disable the input field until Start is clicked
+    inputField.disabled = true;
+    
     // Event listeners
     inputField.addEventListener('input', function() {
         updatePracticeTyping(this.value);
+    });
+    
+    startBtn.addEventListener('click', function() {
+        startPracticeTimer();
+    });
+    
+    stopBtn.addEventListener('click', function() {
+        stopTimer('practice');
     });
     
     restartBtn.addEventListener('click', function() {
@@ -69,16 +82,30 @@ function initPracticeMode() {
     function loadPracticeText() {
         const randomQuote = getRandomQuote();
         displayTextForTyping(textDisplay, randomQuote);
-        restartPractice();
+        
+        // Stop any existing timer
+        stopTimer('practice');
+        
+        // Reset input and stats
+        inputField.value = '';
+        resetStats('practice');
+        document.getElementById('practice-time').textContent = '0:00';
+        
+        // Update display to show initial state
+        updatePracticeTyping('');
     }
     
     // Restart practice session
     function restartPractice() {
+        // Reset timer and input
+        stopTimer('practice');
         inputField.value = '';
-        startPracticeTimer();
         resetStats('practice');
-        inputField.focus();
+        document.getElementById('practice-time').textContent = '0:00';
         updatePracticeTyping('');
+        
+        // Start the timer again
+        startPracticeTimer();
     }
     
     // Update typing in practice mode

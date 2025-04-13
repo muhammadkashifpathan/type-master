@@ -198,8 +198,8 @@ function resumeGame() {
 function endGame() {
     if (!gameActive) return;
     
-    // Play wrong sound for game over
-    playWrongSound();
+    // Play game over sound
+    playGameOverSound();
     
     // Stop timers
     clearInterval(gameTimer);

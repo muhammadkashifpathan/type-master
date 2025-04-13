@@ -4,10 +4,14 @@ let soundEnabled = true;
 // Create audio objects
 const typingSound = new Audio('assets/keyboard-typing-one-short.mp3');
 const wrongSound = new Audio('assets/wrong.mp3');
+const clockTickingSound = new Audio('assets/time-passing-sound-effect-fast-clock.mp3');
+const gameOverSound = new Audio('assets/game-over.mp3');
 
 // Set volume levels
 typingSound.volume = 0.5;
 wrongSound.volume = 0.3;
+clockTickingSound.volume = 0.6;
+gameOverSound.volume = 0.5;
 
 // Function to play typing sound
 function playTypingSound() {
@@ -26,6 +30,28 @@ function playWrongSound() {
         const sound = wrongSound.cloneNode();
         sound.volume = wrongSound.volume;
         sound.play().catch(e => console.log("Error playing sound:", e));
+    }
+}
+
+// Function to play clock ticking sound
+function playClockTickingSound() {
+    if (soundEnabled) {
+        clockTickingSound.currentTime = 0; // Reset to beginning
+        clockTickingSound.play().catch(e => console.log("Error playing sound:", e));
+    }
+}
+
+// Function to stop clock ticking sound
+function stopClockTickingSound() {
+    clockTickingSound.pause();
+    clockTickingSound.currentTime = 0;
+}
+
+// Function to play game over sound
+function playGameOverSound() {
+    if (soundEnabled) {
+        gameOverSound.currentTime = 0; // Reset to beginning
+        gameOverSound.play().catch(e => console.log("Error playing sound:", e));
     }
 }
 
