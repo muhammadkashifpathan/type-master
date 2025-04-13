@@ -29,9 +29,6 @@ function startGame() {
     const gameArea = document.getElementById('falling-words');
     const gameInput = document.getElementById('game-input');
     
-    // Play countdown sound
-    playCountdownSound();
-    
     // Reset game state
     gameArea.innerHTML = '';
     gameInput.value = '';

@@ -190,8 +190,6 @@ function initTestMode() {
         countdownContainer.classList.remove('hidden');
         let count = 3;
         
-        // Play countdown sound at the start
-        playCountdownSound();
         countdown.textContent = count;
         
         const countdownInterval = setInterval(function() {
@@ -203,7 +201,6 @@ function initTestMode() {
                 callback();
             } else {
                 countdown.textContent = count;
-                playCountdownSound(); // Play sound for each countdown number
             }
         }, 1000);
     }
@@ -211,7 +208,7 @@ function initTestMode() {
     // Start test
     function startTest() {
         // Load new text
-        const randomText = getRandomQuote(3); // Get 3 quotes for longer tests
+        const randomText = getRandomQuote(20); // Get 20 quotes for longer tests
         displayTextForTyping(textDisplay, randomText);
         
         // Reset input and stats
